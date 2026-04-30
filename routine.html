@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Routine - DU EEE 59th Batch</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- Particle Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="assets/images/du-logo.png" alt="Dhaka University Logo">
+                <img src="assets/images/eee-logo.png" alt="EEE Department Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="students.html">Students</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="routine.html" class="active">Routine</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="teachers.html">Teachers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Class Routine -->
+    <section class="class-routine page-main">
+        <div class="container">
+            <h2>Class Routine - <span id="routine-year">1st Year</span> - <span id="routine-semester">1st Semester</span></h2>
+            <div class="year-selector">
+                <label for="year-select">Year:</label>
+                <select id="year-select">
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+                <label for="semester-select" style="margin-left: 1rem;">Semester:</label>
+                <select id="semester-select">
+                    <option value="1">1st Semester</option>
+                    <option value="2">2nd Semester</option>
+                </select>
+            </div>
+            <div class="today-highlight">
+                Today's Classes: <span id="today-classes">Loading...</span>
+            </div>
+            <!-- Routine Cards -->
+            <div class="routine-cards">
+                <!-- Day cards will be populated by JavaScript -->
+            </div>
+
+            <!-- Lab Schedule Section -->
+            <div class="lab-schedule">
+                <h3>Lab Schedule</h3>
+                <div class="lab-grid">
+                    <div class="lab-card">
+                        <h4>Power Electronics Lab</h4>
+                        <p><strong>Day:</strong> Thursday</p>
+                        <p><strong>Time:</strong> 2:00 PM - 5:00 PM</p>
+                        <p><strong>Location:</strong> Lab 301</p>
+                        <p><strong>Instructor:</strong> Prof. Ahmed Rahman</p>
+                    </div>
+                    <div class="lab-card">
+                        <h4>Digital Logic Lab</h4>
+                        <p><strong>Day:</strong> Sunday</p>
+                        <p><strong>Time:</strong> 3:45 PM - 5:15 PM</p>
+                        <p><strong>Location:</strong> Lab 205</p>
+                        <p><strong>Instructor:</strong> Prof. Fatima Khan</p>
+                    </div>
+                    <div class="lab-card">
+                        <h4>Microcontrollers Lab</h4>
+                        <p><strong>Day:</strong> Wednesday</p>
+                        <p><strong>Time:</strong> 3:45 PM - 5:15 PM</p>
+                        <p><strong>Location:</strong> Lab 207</p>
+                        <p><strong>Instructor:</strong> Prof. Karim Rahman</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 DU EEE 59th Batch. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/particles.js?v=2"></script>
+    <script src="assets/js/main.js?v=2"></script>
+    <script>
+        // Routine Specific JS for Card-based Display with Year/Semester selection and Supabase storage
+        document.addEventListener('DOMContentLoaded', () => {
+            const routineCardsContainer = document.querySelector('.routine-cards');
+            const todayClassesElement = document.getElementById('today-classes');
+            const routineYearSpan = document.getElementById('routine-year');
+            const routineSemesterSpan = document.getElementById('routine-semester');
+            const yearSelect = document.getElementById('year-select');
+            const semesterSelect = document.getElementById('semester-select');
+
+            // Day names mapping
+            const dayNames = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+            const dayKeys = ['sat', 'sun', 'mon', 'tue', 'wed', 'thu'];
+
+            // Generate time slots (hardcoded based on original timetable)
+            const timeSlots = [
+                { label: '8:00 AM - 9:30 AM', time: 1 },
+                { label: '9:45 AM - 11:15 AM', time: 2 },
+                { label: '11:30 AM - 1:00 PM', time: 3 },
+                { label: '1:00 PM - 2:00 PM', time: 4 },
+                { label: '2:00 PM - 3:30 PM', time: 5 },
+                { label: '3:45 PM - 5:15 PM', time: 6 }
+            ];
+
+            // Default course data for a given year and semester (same data for all years for simplicity)
+            function getDefaultCourseData(year, semester) {
+                // This is the default course data as in the original routine.html
+                return {
+                    'sat': {
+                        1: 'EEE 201: Circuit Analysis 1',
+                        2: 'MATH 201: Mathematics 3',
+                        3: 'EEE 202: Digital Logic Design',
+                        4: 'Break',
+                        5: 'EEE 204: Signals and Systems',
+                        6: 'Lab: Circuit Analysis'
+                    },
+                    'sun': {
+                        1: 'MATH 202: Numerical Methods',
+                        2: 'EEE 201: Circuit Analysis 1',
+                        3: 'EEE 202: Digital Logic Design',
+                        4: 'Break',
+                        5: 'EEE 303: Control Systems',
+                        6: 'Lab: Digital Logic'
+                    },
+                    'mon': {
+                        1: 'EEE 203: Circuit Analysis 2',
+                        2: 'PHYS 102: Physics 2',
+                        3: 'EEE 202: Digital Logic Design',
+                        4: 'Break',
+                        5: 'EEE 304: Power Electronics',
+                        6: 'Lab: Control Systems'
+                    },
+                    'tue': {
+                        1: 'EEE 204: Signals and Systems',
+                        2: 'EEE 201: Circuit Analysis 1',
+                        3: 'EEE 202: Digital Logic Design',
+                        4: 'Break',
+                        5: 'EEE 305: Communication Engineering',
+                        6: 'Lab: Communication'
+                    },
+                    'wed': {
+                        1: 'EEE 301: Electromagnetic Fields',
+                        2: 'MATH 202: Numerical Methods',
+                        3: 'EEE 202: Digital Logic Design',
+                        4: 'Break',
+                        5: 'EEE 306: Microcontrollers',
+                        6: 'Lab: Microcontrollers'
+                    },
+                    'thu': {
+                        1: 'EEE 302: Microprocessors',
+                        2: 'EEE 203: Circuit Analysis 2',
+                        3: 'EEE 202: Digital Logic Design',
+                        4: 'Break',
+                        5: 'Lab: Power Electronics',
+                        6: 'Lab: Power Systems'
+                    }
+                };
+            }
+
+            // Initialize Supabase client
+            const supabaseClient = supabase.createClient(
+                'https://dtdwjviaqscrgmhdmuod.supabase.co',
+                'sb_publishable_N0LPdn1AH7mLzlgC7rTJ1A_ahI6Uwcs'
+            );
+
+            // State
+            let selectedYear = '1';
+            let selectedSemester = '1';
+            let courseData = {}; // Will be loaded based on year/semester and Supabase
+
+            // Function to get today's day index (0=Saturday, 1=Sunday, ..., 5=Thursday)
+            function getTodayDayIndex() {
+                const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+                if (today === 0) { // Sunday
+                    return 1;
+                } else if (today === 6) { // Saturday
+                    return 0;
+                } else {
+                    return today + 1; // Monday to Friday
+                }
+            }
+
+            // Function to load course data for current year and semester from Supabase
+            async function loadCourseData() {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('class_routine')
+                        .select('day, time_slot, course_text')
+                        .eq('year', parseInt(selectedYear))
+                        .eq('semester', parseInt(selectedSemester));
+
+                    if (error) {
+                        console.error('Error loading course data:', error);
+                        courseData = getDefaultCourseData(selectedYear, selectedSemester);
+                    } else if (data && data.length > 0) {
+                        // Convert Supabase data to the format we need
+                        courseData = {
+                            sat: {},
+                            sun: {},
+                            mon: {},
+                            tue: {},
+                            wed: {},
+                            thu: {}
+                        };
+
+                        data.forEach(row => {
+                            if (row.day && row.time_slot && row.course_text) {
+                                courseData[row.day][row.time_slot] = row.course_text;
+                            }
+                        });
+                    } else {
+                        // No data found, use default
+                        courseData = getDefaultCourseData(selectedYear, selectedSemester);
+                    }
+                } catch (err) {
+                    console.error('Error loading course data:', err);
+                    courseData = getDefaultCourseData(selectedYear, selectedSemester);
+                }
+            }
+
+            // Function to update the displayed year-semester text
+            function updateSelectionDisplay() {
+                const yearLabels = { '1': '1st Year', '2': '2nd Year', '3': '3rd Year', '4': '4th Year' };
+                const semesterLabels = { '1': '1st Semester', '2': '2nd Semester' };
+                routineYearSpan.textContent = yearLabels[selectedYear] || '';
+                routineSemesterSpan.textContent = semesterLabels[selectedSemester] || '';
+            }
+
+            // Function to populate routine cards
+            function populateRoutineCards() {
+                const todayDayIndex = getTodayDayIndex();
+                const todayDayKey = dayKeys[todayDayIndex];
+
+                // Clear existing cards
+                routineCardsContainer.innerHTML = '';
+
+                // Create card for each day
+                dayKeys.forEach((dayKey, index) => {
+                    const dayName = dayNames[index];
+                    const isToday = (dayKey === todayDayKey);
+                    const dayCourses = courseData[dayKey];
+
+                    const card = document.createElement('div');
+                    card.className = `routine-day-card ${isToday ? 'today' : ''}`;
+
+                    // Day header with icon
+                    let dayIcon = 'fa-calendar-alt';
+                    if (dayKey === 'sat') dayIcon = 'fa-calendar-day';
+                    else if (dayKey === 'sun') dayIcon = 'fa-calendar-week';
+
+                    card.innerHTML = `
+                        <h3><i class="fas ${dayIcon}"></i>${dayName}</h3>
+                        ${timeSlots.map(slot => {
+                            const course = dayCourses[slot.time] || '';
+                            const isLab = course.includes('Lab:');
+                            const isBreak = course === 'Break';
+                            return `
+                                <div class="routine-time-slot">
+                                    <span class="routine-time">${slot.label}</span>
+                                    <span class="routine-course ${isLab ? 'lab' : ''} ${isBreak ? 'break' : ''}">${isBreak ? '' : course}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    `;
+
+                    routineCardsContainer.appendChild(card);
+                });
+
+                // Update today's classes display
+                const todayCourses = [];
+                Object.keys(dayCourses).forEach(time => {
+                    const course = dayCourses[time];
+                    if (course && course !== 'Break') {
+                        todayCourses.push(course);
+                    }
+                });
+
+                const todayDayName = dayNames[todayDayIndex];
+                if (todayCourses.length > 0) {
+                    todayClassesElement.textContent = `${todayDayName}: ${todayCourses.join(', ')}`;
+                } else {
+                    todayClassesElement.textContent = `${todayDayName}: No classes scheduled`;
+                }
+            }
+
+            // Event listeners
+            yearSelect.addEventListener('change', () => {
+                selectedYear = yearSelect.value;
+                updateSelectionDisplay();
+                loadCourseData().then(() => populateRoutineCards());
+            });
+
+            semesterSelect.addEventListener('change', () => {
+                selectedSemester = semesterSelect.value;
+                updateSelectionDisplay();
+                loadCourseData().then(() => populateRoutineCards());
+            });
+
+            // Initialize
+            updateSelectionDisplay();
+            loadCourseData().then(() => populateRoutineCards());
+        });
+    </script>
+</body>
+</html>

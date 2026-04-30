@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - DU EEE 59th Batch</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Particle Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="assets/images/du-logo.png" alt="Dhaka University Logo">
+                <img src="assets/images/eee-logo.png" alt="EEE Department Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="students.html">Students</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="routine.html">Routine</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="teachers.html">Teachers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Gallery -->
+    <section class="gallery page-main">
+        <div class="container">
+            <h2>Gallery</h2>
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="class">Class</button>
+                <button class="filter-btn" data-category="tour">Tour</button>
+                <button class="filter-btn" data-category="events">Events</button>
+                <button class="filter-btn" data-category="labs">Labs</button>
+            </div>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Gallery Items -->
+                <div class="gallery-item" data-category="class">
+                    <img src="https://picsum.photos/seed/class1/400/300" alt="Classroom Activity">
+                    <div class="gallery-overlay">
+                        <h3>Classroom Activity</h3>
+                        <p>EEE 59th Batch in Action</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="tour">
+                    <img src="https://picsum.photos/seed/tour1/400/300" alt="Industrial Tour">
+                    <div class="gallery-overlay">
+                        <h3>Industrial Tour</h3>
+                        <p>Visit to Power Grid Substation</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="https://picsum.photos/seed/events1/400/300" alt="Technical Fest">
+                    <div class="gallery-overlay">
+                        <h3>Technical Fest</h3>
+                        <p>Annual Technical Festival 2026</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="labs">
+                    <img src="https://picsum.photos/seed/labs1/400/300" alt="Power Electronics Lab">
+                    <div class="gallery-overlay">
+                        <h3>Power Electronics Lab</h3>
+                        <p>Hands-on Lab Session</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="class">
+                    <img src="https://picsum.photos/seed/class2/400/300" alt="Group Study">
+                    <div class="gallery-overlay">
+                        <h3>Group Study Session</h3>
+                        <p>Preparing for Midterm Exams</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="https://picsum.photos/seed/events2/400/300" alt="Project Demo">
+                    <div class="gallery-overlay">
+                        <h3>Project Demo Day</h3>
+                        <p>Showcasing Student Innovations</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="tour">
+                    <img src="https://picsum.photos/seed/tour2/400/300" alt="Renewable Energy Plant">
+                    <div class="gallery-overlay">
+                        <h3>Renewable Energy Visit</h3>
+                        <p>Field Trip to Solar Plant</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="labs">
+                    <img src="https://picsum.photos/seed/labs2/400/300" alt="Digital Logic Lab">
+                    <div class="gallery-overlay">
+                        <h3>Digital Logic Lab</h3>
+                        <p>Circuit Design and Simulation</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="class">
+                    <img src="https://picsum.photos/seed/class3/400/300" alt="Lecture Hall">
+                    <div class="gallery-overlay">
+                        <h3>Lecture Session</h3>
+                        <p>Advanced Electronics Lecture</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="https://picsum.photos/seed/events3/400/300" alt="Graduation Prep">
+                    <div class="gallery-overlay">
+                        <h3>Graduation Preparation</h3>
+                        <p>Alumni Interaction Session</p>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="labs">
+                    <img src="https://picsum.photos/seed/labs3/400/300" alt="Communication Lab">
+                    <div class="gallery-overlay">
+                        <h3>Communication Lab</h3>
+                        <p>RF and Antenna Experiments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-img" src="" alt="">
+        <div class="lightbox-caption"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 DU EEE 59th Batch. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/particles.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Gallery Specific JS
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = lightbox.querySelector('.lightbox-img');
+            const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+            const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+            // Filter Gallery
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const category = button.getAttribute('data-category');
+                    galleryItems.forEach(item => {
+                        const itemCategory = item.getAttribute('data-category');
+                        if (category === 'all' || itemCategory === category) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Lightbox
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const overlay = item.querySelector('.gallery-overlay');
+                    const title = overlay.querySelector('h3').textContent;
+                    const description = overlay.querySelector('p').textContent;
+
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightboxCaption.textContent = `${title} - ${description}`;
+                    lightbox.style.display = 'flex';
+                });
+            });
+
+            lightboxClose.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

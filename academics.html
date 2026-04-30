@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Resources - DU EEE 59th Batch</title>
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
+</head>
+<body>
+    <!-- Particle Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="assets/images/du-logo.png" alt="Dhaka University Logo">
+                <img src="assets/images/eee-logo.png" alt="EEE Department Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="students.html">Students</a></li>
+                <li><a href="academics.html" class="active">Academics</a></li>
+                <li><a href="routine.html">Routine</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="teachers.html">Teachers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Academic Resources -->
+    <section class="academic-resources page-main">
+        <div class="container">
+            <h2>Academic Resources</h2>
+            <div class="semester-cards">
+                <div class="semester-card tab-btn active" data-semester="1">
+                    <i class="fas fa-book"></i>
+                    <h3>1st Year - 1st Semester</h3>
+                </div>
+                <div class="semester-card tab-btn" data-semester="2">
+                    <i class="fas fa-book"></i>
+                    <h3>1st Year - 2nd Semester</h3>
+                </div>
+                <div class="semester-card tab-btn" data-semester="3">
+                    <i class="fas fa-book"></i>
+                    <h3>2nd Year - 1st Semester</h3>
+                </div>
+                <div class="semester-card tab-btn" data-semester="4">
+                    <i class="fas fa-book"></i>
+                    <h3>2nd Year - 2nd Semester</h3>
+                </div>
+                <div class="semester-card tab-btn" data-semester="5">
+                    <i class="fas fa-book"></i>
+                    <h3>3rd Year - 1st Semester</h3>
+                </div>
+                <div class="semester-card tab-btn" data-semester="6">
+                    <i class="fas fa-book"></i>
+                    <h3>3rd Year - 2nd Semester</h3>
+                </div>
+                <div class="semester-card tab-btn" data-semester="7">
+                    <i class="fas fa-book"></i>
+                    <h3>4th Year - 1st Semester</h3>
+                </div>
+                <div class="semester-card tab-btn" data-semester="8">
+                    <i class="fas fa-book"></i>
+                    <h3>4th Year - 2nd Semester</h3>
+                </div>
+            </div>
+            <div class="tab-content">
+                <!-- Semester 1 Content -->
+                <div class="tab-pane active" data-semester="1">
+                    <p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>
+                </div>
+                <!-- Semester 2 Content -->
+                <div class="tab-pane" data-semester="2">
+                    <p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>
+                </div>
+                <!-- Semester 3 Content -->
+                <div class="tab-pane" data-semester="3">
+                    <p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>
+                </div>
+                <!-- Semester 4 Content -->
+                <div class="tab-pane" data-semester="4">
+                    <p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>
+                </div>
+                <!-- Semester 5 Content -->
+                <div class="tab-pane" data-semester="5">
+                    <p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>
+                </div>
+                <!-- Semester 6 Content -->
+                <div class="tab-pane" data-semester="6">
+                    <p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>
+                </div>
+                <!-- Semester 7 Content -->
+                <div class="tab-pane" data-semester="7">
+                    <p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>
+                </div>
+                <!-- Semester 8 Content -->
+                <div class="tab-pane" data-semester="8">
+                    <p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 DU EEE 59th Batch. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/particles.js?v=2"></script>
+    <script src="assets/js/main.js?v=2"></script>
+    <script>
+        // Academics Specific JS for Tabs and loading content from Supabase
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            // Initialize Supabase client
+            const supabaseClient = supabase.createClient(
+                'https://dtdwjviaqscrgmhdmuod.supabase.co',
+                'sb_publishable_N0LPdn1AH7mLzlgC7rTJ1A_ahI6Uwcs'
+            );
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Deactivate all tabs
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                    // Activate clicked tab
+                    button.classList.add('active');
+                    const semester = button.getAttribute('data-semester');
+                    document.querySelector(`.tab-pane[data-semester="${semester}"]`).classList.add('active');
+                });
+            });
+
+            // Load content from Supabase for each tab pane
+            tabPanes.forEach(async (pane) => {
+                const semesterNum = parseInt(pane.getAttribute('data-semester'));
+                if (!isNaN(semesterNum)) {
+                    // Convert semester number (1-8) to year and semester
+                    // 1->1-1, 2->1-2, 3->2-1, 4->2-2, 5->3-1, 6->3-2, 7->4-1, 8->4-2
+                    const year = Math.ceil(semesterNum / 2);
+                    const semesterInYear = (semesterNum - 1) % 2 + 1;
+
+                    try {
+                        const { data, error } = await supabaseClient
+                            .from('academic_resources')
+                            .select('content')
+                            .eq('year', year)
+                            .eq('semester', semesterInYear)
+                            .single();
+
+                        if (!error && data) {
+                            pane.innerHTML = data.content;
+                        } else {
+                            // If no content found or error, show placeholder
+                            pane.innerHTML = '<p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>';
+                        }
+                    } catch (err) {
+                        console.error('Error loading academic content:', err);
+                        pane.innerHTML = '<p class="placeholder">No content available. Please add content via the Admin Dashboard.</p>';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Feedback - DU EEE 59th Batch</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Particle Canvas -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <img src="assets/images/du-logo.png" alt="Dhaka University Logo">
+                <img src="assets/images/eee-logo.png" alt="EEE Department Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="students.html">Students</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="routine.html">Routine</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="teachers.html">Teachers</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact & Feedback -->
+    <section class="contact-feedback page-main">
+        <div class="container">
+            <h2>Contact & Feedback</h2>
+            <div class="contact-grid">
+                <!-- CR Contact Cards -->
+                <div class="cr-contacts">
+                    <h3>Class Representatives</h3>
+                    <div class="cr-cards">
+                        <div class="cr-card">
+                            <h4>CR 1: Ahmed Hassan</h4>
+                            <p><strong>Roll:</strong> 220101</p>
+                            <p><strong>Email:</strong> ahmed.hassan220101@du.ac.bd</p>
+                            <p><strong>Phone:</strong> +880-1XXX-XXXXXX</p>
+                        </div>
+                        <div class="cr-card">
+                            <h4>CR 2: Fatima Khan</h4>
+                            <p><strong>Roll:</strong> 220102</p>
+                            <p><strong>Email:</strong> fatima.khan220102@du.ac.bd</p>
+                            <p><strong>Phone:</strong> +880-1XXX-XXXXXX</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback Form -->
+                <div class="feedback-form">
+                    <h3>Send Us Feedback</h3>
+                    <form id="feedback-form">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Your Name" required>
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="your@email.com" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" placeholder="Subject">
+                            <label for="subject">Subject</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" placeholder="Your message..." required></textarea>
+                            <label for="message">Message</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Feedback</button>
+                    </form>
+                    <div id="form-success" class="form-success">
+                        <p>Thank you for your feedback!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Links -->
+    <section class="social-media">
+        <div class="container">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 DU EEE 59th Batch. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/particles.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Contact Specific JS for Form Submission
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('feedback-form');
+            const successMessage = document.getElementById('form-success');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Simulate form submission
+                successMessage.style.display = 'block';
+                form.reset();
+                // Hide success message after 3 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

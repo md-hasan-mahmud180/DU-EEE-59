@@ -1,0 +1,370 @@
+/* Admin Dashboard Styles */
+
+/* Login Container */
+.login-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(10, 10, 26, 0.9);
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.login-box h2 {
+    text-align: center;
+    color: #00d4ff;
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.login-error {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+    border-radius: 5px;
+    color: #ff6b6b;
+    text-align: center;
+    font-size: 0.9rem;
+    display: none;
+}
+
+/* Button Styles */
+.btn-danger {
+    background: linear-gradient(45deg, #ff6b6b, #ff5252);
+    color: #0a0a1a;
+}
+
+.btn-danger:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+/* Dashboard Styles */
+.dashboard {
+    min-height: calc(100vh - 140px); /* Account for navbar and footer */
+}
+
+.dashboard h2 {
+    text-align: center;
+    color: #00d4ff;
+    margin-bottom: 2rem;
+}
+
+.dashboard-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn:hover {
+    color: #fff;
+}
+
+.tab-btn.active {
+    color: #00d4ff;
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(to right, #00d4ff, #f0a500);
+}
+
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.semester-manager, .routine-manager {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Semester Manager Styles */
+.semester-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.semester-tab-btn {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.semester-tab-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.semester-tab-btn.active {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: #00d4ff;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+    transform: translateY(-3px);
+}
+
+.semester-content {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    min-height: 300px;
+}
+
+.semester-content label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #f0a500;
+}
+
+.semester-content textarea {
+    width: 100%;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-family: inherit;
+    resize: vertical;
+    padding: 1rem;
+}
+
+.semester-content textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.semester-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Routine Manager Styles */
+.routine-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    align-items: end;
+}
+
+.routine-controls label {
+    margin-right: 0.5rem;
+    font-weight: 500;
+}
+
+.routine-controls select, .routine-controls input {
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.routine-controls select::-ms-expand {
+    display: none;
+}
+
+.routine-controls option {
+    background: rgba(10, 10, 26, 0.9);
+    color: #fff;
+}
+
+.routine-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.routine-table th,
+.routine-table td {
+    padding: 1rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.routine-table th {
+    background: rgba(0, 212, 255, 0.1);
+    color: #00d4ff;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.routine-table td input {
+    width: 100%;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.routine-table td input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.routine-table td input:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.routine-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.reset-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.save-btn {
+    background: linear-gradient(45deg, #00d4ff, #f0a500);
+    color: #0a0a1a;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-box {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+
+    .dashboard-tabs {
+        flex-wrap: wrap;
+    }
+
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .routine-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .routine-controls label {
+        margin-bottom: 0.5rem;
+    }
+
+    .routine-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .reset-btn, .save-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
